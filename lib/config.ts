@@ -1,0 +1,2 @@
+export const config = { whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '50671552425', instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL || '', email: process.env.NEXT_PUBLIC_EMAIL || '', location: process.env.NEXT_PUBLIC_LOCATION || 'Garza, Nosara. Costa Rica', form: process.env.NEXT_PUBLIC_COLLABORATOR_FORM_URL || '/colabora', site: process.env.NEXT_PUBLIC_SITE_URL || '' };
+export const whatsapp = (message:string) => `https://wa.me/${config.whatsapp.replace(/\D/g,'')}?text=${encodeURIComponent(message)}`;
