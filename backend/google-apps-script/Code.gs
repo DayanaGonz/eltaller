@@ -1,0 +1,172 @@
+// Generado desde lib/form.ts. Ejecutar setup una vez antes de implementar.
+const TallerForm=(function(){const exports={};
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.fields = void 0;
+exports.visible = visible;
+exports.normalize = normalize;
+exports.validate = validate;
+const opts = (rows) => rows.map(([value, es, en]) => ({ value, es, en }));
+exports.fields = [
+    { id: 'full_name', section: 0, es: 'Nombre completo', en: 'Full name', type: 'text', required: true, max: 120 },
+    { id: 'project_name', section: 0, es: 'Nombre de tu emprendimiento, proyecto o marca', en: 'Business, project or brand name', type: 'text', max: 160 },
+    { id: 'whatsapp', section: 0, es: 'WhatsApp', en: 'WhatsApp', type: 'tel', required: true, max: 30 },
+    { id: 'email', section: 0, es: 'Correo electrónico', en: 'Email address', type: 'email', required: true, max: 254 },
+    { id: 'portfolio', section: 0, es: 'Instagram, página web o portafolio', en: 'Instagram, website or portfolio', type: 'text', max: 300 },
+    { id: 'roles', section: 0, es: '¿Cómo te describes?', en: 'How would you describe yourself?', type: 'multi', required: true, options: opts([['artist', 'Artista', 'Artist'], ['entrepreneur', 'Emprendedor(a)', 'Entrepreneur'], ['artisan', 'Artesano(a)', 'Artisan'], ['workshop_leader', 'Tallerista', 'Workshop leader'], ['wellness_professional', 'Profesional de bienestar', 'Wellbeing professional'], ['educator', 'Educador(a)', 'Educator'], ['facilitator', 'Facilitador(a)', 'Facilitator'], ['other', 'Otro', 'Other']]) },
+    { id: 'role_other', section: 0, es: 'Cuéntanos cuál', en: 'Please specify', type: 'text', required: true, max: 120, when: ['roles', 'other'] },
+    { id: 'proposal_area', section: 1, es: '¿Qué tipo de experiencia te gustaría compartir?', en: 'What kind of experience would you like to share?', type: 'multi', required: true, options: opts([['art_creativity', 'Arte & creatividad', 'Art & creativity'], ['kids_families', 'Niños & familias', 'Children & families'], ['wellness', 'Bienestar', 'Wellbeing'], ['culture', 'Cultura & conversaciones', 'Culture & conversations'], ['nature', 'Naturaleza & sostenibilidad', 'Nature & sustainability'], ['experiences', 'Experiencias & celebraciones', 'Experiences & celebrations'], ['other', 'Otro', 'Other']]) },
+    { id: 'proposal_area_other', section: 1, es: '¿Qué otra experiencia?', en: 'What other experience?', type: 'text', required: true, max: 120, when: ['proposal_area', 'other'] },
+    { id: 'workshop_name', section: 1, es: '¿Cómo llamarías a tu taller o experiencia?', en: 'What would you call your workshop or experience?', type: 'text', required: true, max: 160, help: { es: 'Por ejemplo: Cerámica & vino, Pintura para niños, Creación de velas o Círculo de mujeres.', en: 'For example: Pottery & wine, Painting for children, Candle making or Women’s circle.' } },
+    { id: 'idea', section: 1, es: 'Cuéntanos brevemente tu idea', en: 'Briefly tell us about your idea', type: 'textarea', required: true, max: 600, help: { es: '¿Qué harán, aprenderán o crearán los participantes?', en: 'What will participants do, learn or create?' } },
+    { id: 'audience', section: 2, es: '¿Para quién está pensada?', en: 'Who is it for?', type: 'multi', required: true, exclusive: ['everyone'], options: opts([['children', 'Niños', 'Children'], ['teens', 'Adolescentes', 'Teenagers'], ['adults', 'Adultos', 'Adults'], ['families', 'Familias', 'Families'], ['couples', 'Parejas', 'Couples'], ['friends', 'Grupos de amigos', 'Groups of friends'], ['companies', 'Empresas / equipos', 'Companies / teams'], ['everyone', 'Abierto a todos', 'Everyone']]) },
+    { id: 'duration', section: 2, es: '¿Cuál sería la duración aproximada?', en: 'Approximately how long would it last?', type: 'select', required: true, options: opts([['under_1h', 'Menos de 1 hora', 'Less than 1 hour'], ['1_2h', '1–2 horas', '1–2 hours'], ['2_3h', '2–3 horas', '2–3 hours'], ['over_3h', 'Más de 3 horas', 'More than 3 hours'], ['undecided', 'Aún no lo tengo definido', 'Not sure yet']]) },
+    { id: 'group_size', section: 2, es: '¿Para cuántas personas funciona mejor?', en: 'What group size works best?', type: 'select', required: true, options: opts([['1_5', '1–5', '1–5'], ['6_10', '6–10', '6–10'], ['11_15', '11–15', '11–15'], ['16_20', '16–20', '16–20'], ['over_20', 'Más de 20', 'More than 20'], ['undecided', 'Aún no lo tengo definido', 'Not sure yet']]) },
+    { id: 'participant_experience', section: 2, es: '¿Los participantes necesitan experiencia previa?', en: 'Do participants need previous experience?', type: 'yesno', required: true },
+    { id: 'participant_experience_details', section: 2, es: '¿Qué experiencia necesitan?', en: 'What experience do they need?', type: 'text', required: true, max: 250, when: ['participant_experience', 'yes'] },
+    { id: 'materials', section: 2, es: '¿Los materiales están incluidos en tu propuesta?', en: 'Are materials included in your proposal?', type: 'select', required: true, options: opts([['all', 'Sí, yo proporciono todos los materiales', 'Yes, I provide all materials'], ['some', 'Algunos materiales', 'Some materials'], ['none', 'No', 'No'], ['depends', 'Depende de la experiencia', 'It depends on the experience'], ['undecided', 'Aún no lo tengo definido', 'Not sure yet']]) },
+    { id: 'space_needs', section: 2, es: '¿Necesitas algo especial del espacio?', en: 'Do you need anything specific from the space?', type: 'multi', required: true, exclusive: ['none'], options: opts([['table_chairs', 'Mesa y sillas', 'Table and chairs'], ['water', 'Agua / fregadero', 'Water / sink'], ['electricity', 'Electricidad', 'Electricity'], ['outdoors', 'Espacio exterior', 'Outdoor space'], ['projector', 'Proyector / pantalla', 'Projector / screen'], ['sound', 'Sonido / música', 'Sound / music'], ['food_area', 'Área para alimentos', 'Food area'], ['other', 'Otro', 'Other'], ['none', 'Nada especial', 'Nothing specific']]) },
+    { id: 'space_needs_other', section: 2, es: '¿Qué más necesitas?', en: 'What else do you need?', type: 'text', required: true, max: 250, when: ['space_needs', 'other'] },
+    { id: 'facilitated_before', section: 3, es: '¿Has impartido este taller o una experiencia similar antes?', en: 'Have you led this workshop or a similar experience before?', type: 'yesno', required: true, help: { es: 'Las ideas nuevas también son bienvenidas.', en: 'New ideas are welcome too.' } },
+    { id: 'previous_locations', section: 3, es: '¿Dónde lo has realizado?', en: 'Where have you offered it?', type: 'text', max: 250, when: ['facilitated_before', 'yes'] },
+    { id: 'previous_portfolio', section: 3, es: '¿Tienes fotografías, Instagram o algún material que podamos ver?', en: 'Do you have photos, Instagram or material we can look at?', type: 'url', max: 500, when: ['facilitated_before', 'yes'] },
+    { "id": "nosara_workshops", "section": 3, "es": "¿Actualmente impartes talleres en Nosara o sus alrededores?", "en": "Do you currently offer workshops in Nosara or nearby?", "type": "yesno", "required": true },
+    { "id": "nosara_venues", "section": 3, "es": "¿En qué espacios y con qué frecuencia?", "en": "At which venues and how often?", "type": "textarea", "max": 400, "required": true, "when": ["nosara_workshops", "yes"], "help": { "es": "Indica el nombre o tipo de espacio, la zona y la frecuencia. Comparte solo información que puedas divulgar.", "en": "Include the venue name or type, area and frequency. Share only information you are able to disclose." } },
+    { "id": "nosara_market", "section": 3, "es": "¿Qué precios y asistencia suelen tener tus talleres en la zona?", "en": "What prices and attendance are typical for your workshops in the area?", "type": "textarea", "max": 500, "when": ["nosara_workshops", "yes"], "help": { "es": "Precio por persona y moneda (CRC o USD), duración, participantes habituales y qué incluye. Puedes indicar un rango o que aún no tienes datos.", "en": "Price per person and currency (CRC or USD), duration, usual attendance and what is included. A range or “not enough data yet” is fine." } },
+    { "id": "previous_business_terms", "section": 3, "es": "¿Cómo has trabajado económicamente con otros espacios?", "en": "How have you worked financially with other venues?", "type": "textarea", "max": 600, "when": ["facilitated_before", "yes"], "help": { "es": "¿Pagabas alquiler por hora, por taller o mensualidad? ¿Compartían ingresos? Indica montos o porcentajes aproximados, quién recibía cada parte y quién cubría materiales, promoción y cobros. Si no trabajaste con otro espacio, indícalo.", "en": "Did you pay hourly rent, per workshop or monthly? Did you share revenue? Include approximate amounts or percentages, who received each share and who covered materials, promotion and payments. If you have not worked with another venue, say so." } },
+    { "id": "collaboration", "section": 4, "es": "¿Qué modalidad de pago al espacio te funcionaría mejor?", "en": "Which payment arrangement with the venue would work best for you?", "type": "multi", "required": true, "exclusive": ["undecided"], "options": [{ "value": "revenue_share", "es": "Pagar al espacio un porcentaje de los ingresos del taller", "en": "Pay the venue a percentage of workshop revenue" }, { "value": "per_workshop", "es": "Pagar una tarifa fija por taller", "en": "Pay a fixed fee per workshop" }, { "value": "hourly", "es": "Pagar alquiler por hora", "en": "Pay hourly rent" }, { "value": "monthly", "es": "Pagar una mensualidad por uso recurrente", "en": "Pay a monthly fee for recurring use" }, { "value": "facilitator_fee", "es": "Que El Taller me pague por facilitar la actividad", "en": "Receive a facilitator fee from El Taller" }, { "value": "other", "es": "Proponer otra modalidad o una combinación", "en": "Propose another arrangement or a combination" }, { "value": "undecided", "es": "Necesito orientación para definirlo", "en": "I need guidance to decide" }], "help": { "es": "Puedes elegir varias modalidades. Distingue lo que pagarías por usar el espacio de lo que cobrarías a los participantes.", "en": "You can choose more than one. Separate what you would pay for the space from what you would charge participants." } },
+    { "id": "space_hourly_budget", "section": 4, "es": "¿Cuánto estarías dispuesto(a) a pagar por hora de uso?", "en": "How much would you be willing to pay per hour?", "type": "text", "max": 160, "required": true, "when": ["collaboration", "hourly"], "help": { "es": "Monto o rango y moneda (CRC o USD). Si no lo sabes, escribe “Por definir”.", "en": "Amount or range and currency (CRC or USD). If unsure, write “To be decided”." } },
+    { "id": "space_workshop_budget", "section": 4, "es": "¿Cuánto pagarías al espacio por cada taller?", "en": "How much would you pay the venue per workshop?", "type": "text", "max": 200, "required": true, "when": ["collaboration", "per_workshop"], "help": { "es": "Monto o rango, moneda y horas de uso, incluyendo montaje y limpieza. También puedes indicar “Por definir”.", "en": "Amount or range, currency and hours of use, including setup and cleanup. You may also write “To be decided”." } },
+    { "id": "space_monthly_budget", "section": 4, "es": "¿Qué mensualidad pagarías y cuánto uso esperarías incluir?", "en": "What monthly fee would you pay and how much use should it include?", "type": "textarea", "max": 350, "required": true, "when": ["collaboration", "monthly"], "help": { "es": "Monto o rango, moneda, talleres al mes y horas por taller. Si falta algo por definir, indícalo.", "en": "Amount or range, currency, workshops per month and hours per workshop. Note anything still to be decided." } },
+    { "id": "space_revenue_share", "section": 4, "es": "¿Qué porcentaje de los ingresos destinarías al espacio?", "en": "What percentage of revenue would you allocate to the venue?", "type": "textarea", "max": 350, "required": true, "when": ["collaboration", "revenue_share"], "help": { "es": "Aclara el porcentaje para el espacio y para ti; si se calcula sobre el total cobrado o después de gastos, y cuáles gastos. Si aún no lo sabes, indícalo.", "en": "Specify the venue’s share and your share; whether it applies to total payments or after expenses, and which expenses. Say if you are unsure." } },
+    { "id": "facilitator_fee", "section": 4, "es": "¿Cuánto esperarías recibir por facilitar el taller?", "en": "What fee would you expect to receive for facilitating?", "type": "text", "max": 200, "required": true, "when": ["collaboration", "facilitator_fee"], "help": { "es": "Indica monto, moneda y si es por hora, por taller o por participante. Puedes escribir “Por definir”.", "en": "Include amount, currency and whether it is per hour, workshop or participant. You may write “To be decided”." } },
+    { "id": "payment_other", "section": 4, "es": "Describe la modalidad o combinación que propones", "en": "Describe your proposed arrangement or combination", "type": "textarea", "max": 400, "required": true, "when": ["collaboration", "other"] },
+    { "id": "space_inclusions", "section": 4, "es": "¿Qué necesitarías que incluyera ese pago al espacio?", "en": "What would you need that venue payment to include?", "type": "textarea", "max": 400, "help": { "es": "Por ejemplo: mobiliario, limpieza, materiales, promoción, gestión de reservas o bebidas. Son expectativas para conversar, no servicios confirmados.", "en": "For example: furniture, cleaning, materials, promotion, booking management or drinks. These are expectations to discuss, not confirmed services." } },
+    { "id": "price_defined", "section": 4, "es": "¿Ya tienes un precio estimado que pagaría cada participante?", "en": "Do you have an estimated price each participant would pay?", "type": "yesno", "required": true },
+    { "id": "price_estimate", "section": 4, "es": "Precio por participante: monto y moneda", "en": "Price per participant: amount and currency", "type": "text", "max": 160, "required": true, "when": ["price_defined", "yes"], "help": { "es": "Indica el total por persona en CRC o USD, o un rango aproximado. Este es el precio al público, no el alquiler del espacio.", "en": "Give the total per person in CRC or USD, or an approximate range. This is the participant price, not venue rent." } },
+    { "id": "participant_price_includes", "section": 4, "es": "¿Qué incluiría ese precio para el participante?", "en": "What would that participant price include?", "type": "textarea", "max": 350, "required": true, "when": ["price_defined", "yes"], "help": { "es": "Materiales, piezas para llevar, bebidas u otros elementos. Aclara si algún costo se cobra aparte.", "en": "Materials, take-home pieces, drinks or other items. Note any additional charges." } },
+    { "id": "economic_conditions", "section": 4, "es": "¿Qué condiciones harían viable esta colaboración para ti?", "en": "What conditions would make this collaboration viable for you?", "type": "textarea", "max": 500, "help": { "es": "Puedes incluir mínimo de participantes, anticipos, cuándo pagar al espacio, cancelaciones o una propuesta económica alternativa.", "en": "You may include minimum attendance, deposits, when to pay the venue, cancellations or an alternative financial proposal." } },
+    { id: 'frequency', section: 4, es: '¿Con qué frecuencia te interesaría realizar actividades?', en: 'How often would you like to offer activities?', type: 'select', required: true, options: opts([['once', 'Una única experiencia', 'One experience'], ['monthly', 'Una vez al mes', 'Once a month'], ['several_monthly', 'Varias veces al mes', 'Several times a month'], ['weekly', 'Semanalmente', 'Weekly'], ['seasonal', 'Por temporadas', 'Seasonally'], ['demand', 'Depende de la demanda', 'Depending on demand'], ['undecided', 'Aún no lo sé', 'Not sure yet']]) },
+    { id: 'community_contribution', section: 5, es: '¿Qué te gustaría aportar a la comunidad de El Taller?', en: 'What would you like to bring to the El Taller community?', type: 'textarea', required: true, max: 400, help: { es: 'Puede ser creatividad, conocimiento, bienestar, conexión, aprendizaje, diversión...', en: 'Creativity, knowledge, wellbeing, connection, learning, fun...' } },
+    { id: 'referral', section: 5, es: '¿Cómo conociste El Taller?', en: 'How did you hear about El Taller?', type: 'select', options: opts([['instagram', 'Instagram', 'Instagram'], ['whatsapp', 'WhatsApp', 'WhatsApp'], ['recommendation', 'Recomendación de alguien', 'A recommendation'], ['flyer_qr', 'Flyer / QR', 'Flyer / QR'], ['event', 'Evento', 'Event'], ['walkby', 'Pasé por el espacio', 'I passed by the space'], ['other', 'Otro', 'Other']]) },
+    { id: 'referral_other', section: 5, es: '¿Dónde nos conociste?', en: 'Where did you hear about us?', type: 'text', max: 120, when: ['referral', 'other'] },
+    { id: 'consent', section: 5, es: 'Confirmo que la información proporcionada es correcta y autorizo a El Taller a contactarme para conversar sobre esta propuesta.', en: 'I confirm that the information provided is correct and authorise El Taller to contact me to discuss this proposal.', type: 'checkbox', required: true }
+];
+function visible(f, v) { if (!f.when)
+    return true; const value = v[f.when[0]]; return Array.isArray(value) ? value.includes(f.when[1]) : value === f.when[1]; }
+function normalize(v) { const out = {}; for (const f of exports.fields) {
+    if (!visible(f, v))
+        continue;
+    const val = v[f.id];
+    if (f.type === 'multi')
+        out[f.id] = Array.isArray(val) ? [...new Set(val)].sort() : [];
+    else if (f.type === 'checkbox')
+        out[f.id] = val === true;
+    else
+        out[f.id] = typeof val === 'string' ? val.trim() : '';
+} return out; }
+function validate(v, section) { const errors = {}; for (const f of exports.fields) {
+    if (section !== undefined && f.section !== section || !visible(f, v))
+        continue;
+    const value = v[f.id];
+    const empty = value === undefined || value === false || value === '' || typeof value === 'string' && !value.trim() || Array.isArray(value) && value.length === 0;
+    if (f.required && empty) {
+        errors[f.id] = 'required';
+        continue;
+    }
+    if (empty)
+        continue;
+    if (f.type === 'multi') {
+        if (!Array.isArray(value) || value.some(x => !f.options?.some(o => o.value === x)) || f.exclusive?.some(x => value.includes(x) && value.length > 1))
+            errors[f.id] = 'invalid';
+    }
+    else if (f.type === 'checkbox') {
+        if (value !== true)
+            errors[f.id] = 'required';
+    }
+    else if (typeof value !== 'string') {
+        errors[f.id] = 'invalid';
+    }
+    else if (f.max && value.length > f.max) {
+        errors[f.id] = 'too_long';
+    }
+    else if (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+        errors[f.id] = 'email';
+    }
+    else if (f.type === 'tel' && !/^\+?[\d\s().-]{7,30}$/.test(value)) {
+        errors[f.id] = 'phone';
+    }
+    else if (f.type === 'url') {
+        try {
+            const u = parseHttpUrl_(value);
+            if (!['http:', 'https:'].includes(u.protocol))
+                errors[f.id] = 'url';
+        }
+        catch {
+            errors[f.id] = 'url';
+        }
+    }
+    else if (f.type === 'select' && !f.options?.some(o => o.value === value) || f.type === 'yesno' && !['yes', 'no'].includes(value)) {
+        errors[f.id] = 'invalid';
+    }
+} return errors; }
+
+return exports;})();
+/** El Taller: receptor privado de respuestas. No publica ni lee respuestas por HTTP. */
+function setup() {
+  const p=PropertiesService.getScriptProperties();
+  let id=p.getProperty('SHEET_ID');
+  if (!id) {const book=SpreadsheetApp.create('El Taller - Respuestas de colaboradores');id=book.getId();p.setProperty('SHEET_ID',id);book.getSheets()[0].setName('Propuestas');}
+  const book=SpreadsheetApp.openById(id);
+  const sheet=book.getSheetByName('Propuestas')||book.insertSheet('Propuestas');
+  ensureHeaders_(sheet);
+  sheet.setFrozenRows(1);
+  sheet.getRange(1,1,1,headers_().length).setBackground('#626746').setFontColor('#ffffff').setFontWeight('bold').setWrap(true);
+  sheet.setColumnWidths(1,headers_().length,180);
+  sheet.setRowHeight(1,70);
+  console.log('Hoja privada de respuestas: '+book.getUrl());
+}
+function headers_(){return ['ID de envío','Fecha UTC','Idioma'].concat(TallerForm.fields.map(function(f){return f.es+' ['+f.id+']';}));}
+function ensureHeaders_(sheet){
+  const expected=headers_();
+  if(sheet.getMaxColumns()<expected.length)sheet.insertColumnsAfter(sheet.getMaxColumns(),expected.length-sheet.getMaxColumns());
+  if(sheet.getLastRow()===0){sheet.getRange(1,1,1,expected.length).setValues([expected]);return;}
+  const actual=sheet.getRange(1,1,1,expected.length).getValues()[0];
+  if(actual.some(function(v,i){return v!==expected[i];}))throw new Error('schema_mismatch');
+}
+function json_(v){return ContentService.createTextOutput(JSON.stringify(v)).setMimeType(ContentService.MimeType.JSON);}
+function doGet(){return json_({service:'el-taller-propuestas',schema:2,configured:!!PropertiesService.getScriptProperties().getProperty('SHEET_ID')});}
+function safeCell_(value){const s=String(value==null?'':value);return /^[\s]*[=+@-]/.test(s)?"'"+s:s;}
+function parseHttpUrl_(value){if(!/^https?:\/\/[^\s/?#]+(?:[/?#][^\s]*)?$/i.test(value))throw new Error('url');return {protocol:value.slice(0,value.indexOf(':')+1).toLowerCase()};}
+function doPost(e){
+  let lock;
+  try {
+    const raw=e&&e.postData&&e.postData.contents;
+    if(typeof raw!=='string'||raw.length>30000)return json_({ok:false,error:'invalid'});
+    const body=JSON.parse(raw);
+    if(!body||typeof body.requestId!=='string'||!/^[-a-zA-Z0-9]{20,60}$/.test(body.requestId)||!['es','en'].includes(body.language)||!body.values||typeof body.values!=='object'||Array.isArray(body.values)||body.website)return json_({ok:false,error:'invalid'});
+    const errors=TallerForm.validate(body.values);
+    if(Object.keys(errors).length)return json_({ok:false,error:'validation',fields:errors});
+    const id=PropertiesService.getScriptProperties().getProperty('SHEET_ID');
+    if(!id)return json_({ok:false,error:'not_configured'});
+    lock=LockService.getScriptLock();if(!lock.tryLock(15000))return json_({ok:false,error:'busy'});
+    const sheet=SpreadsheetApp.openById(id).getSheetByName('Propuestas');
+    if(!sheet)throw new Error('missing_sheet');
+    ensureHeaders_(sheet);
+    const v=TallerForm.normalize(body.values);
+    const values=[body.language].concat(TallerForm.fields.map(function(f){const val=v[f.id];return safeCell_(Array.isArray(val)?val.join(' | '):val);}));
+    if(sheet.getLastRow()>1){
+      const found=sheet.getRange(2,1,sheet.getLastRow()-1,1).createTextFinder(body.requestId).matchEntireCell(true).findNext();
+      if(found){const previous=sheet.getRange(found.getRow(),3,1,values.length).getValues()[0].map(String);if(JSON.stringify(previous)!==JSON.stringify(values))return json_({ok:false,error:'id_conflict'});return json_({ok:true,requestId:body.requestId});}
+    }
+    // A modest shared limit protects spreadsheet quotas. No personal data is cached.
+    const cache=CacheService.getScriptCache(),key='rate_'+Math.floor(Date.now()/60000),count=Number(cache.get(key)||0);
+    if(count>=30)return json_({ok:false,error:'busy'});
+    const row=[body.requestId,new Date().toISOString()].concat(values);
+    sheet.getRange(sheet.getLastRow()+1,1,1,row.length).setNumberFormat('@').setValues([row]);
+    SpreadsheetApp.flush();
+    cache.put(key,String(count+1),120);
+    return json_({ok:true,requestId:body.requestId});
+  } catch(error) {return json_({ok:false,error:'submission_failed'});}
+  finally {if(lock)lock.releaseLock();}
+}
