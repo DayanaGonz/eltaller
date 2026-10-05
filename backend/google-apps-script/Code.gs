@@ -157,7 +157,7 @@ function doPost(e){
     const values=[body.language].concat(TallerForm.fields.map(function(f){const val=v[f.id];return safeCell_(Array.isArray(val)?val.join(' | '):val);}));
     if(sheet.getLastRow()>1){
       const found=sheet.getRange(2,1,sheet.getLastRow()-1,1).createTextFinder(body.requestId).matchEntireCell(true).findNext();
-      if(found){const previous=sheet.getRange(found.getRow(),3,1,values.length).getValues()[0].map(String);if(JSON.stringify(previous)!==JSON.stringify(values))return json_({ok:false,error:'id_conflict'});return json_({ok:true,requestId:body.requestId});}
+      if(found){const previous=sheet.getRange(found.getRow(),3,1,values.length).getValues()[0].map(String);if(previous.some(function(value,i){const expected=String(values[i]);return value!==expected&&!(expected.charAt(0)==="'"&&value===expected.slice(1));}))return json_({ok:false,error:'id_conflict'});return json_({ok:true,requestId:body.requestId});}
     }
     // A modest shared limit protects spreadsheet quotas. No personal data is cached.
     const cache=CacheService.getScriptCache(),key='rate_'+Math.floor(Date.now()/60000),count=Number(cache.get(key)||0);
